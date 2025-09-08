@@ -47,10 +47,26 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}")
+//    .WithStaticAssets();
+
+// Root goes to Admin/Home/Index (optional, if you want Admin as default homepage)
+app.MapControllerRoute(
+    name: "default_admin",
+    pattern: "",
+    defaults: new { area = "Admin", controller = "Home", action = "Index" });
+
+// Area routes
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+// Non-area routes
 app.MapControllerRoute(
     name: "default",
-    pattern: "{areas=Admin}/{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 
