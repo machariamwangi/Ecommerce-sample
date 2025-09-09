@@ -1,0 +1,87 @@
+﻿@model RegisterViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+    <h2>Register</h2>
+    <p>Create a new account.</p>
+    <hr />
+
+    <div class="row">
+
+        <div class="col-md-8">
+            <form asp-area="Identity"
+                  asp-controller="Account"
+                  asp-action="Register"
+                  class="row"
+                  method="post">
+
+                <input type="hidden" name="returnUrl" value="@(ViewData["ReturnUrl"] ?? "/")" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Email" class="form-control" />
+                    <label asp-for="Email"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating py-2 col-md-6">
+                    <input asp-for="FullName" class="form-control" />
+                    <label asp-for="FullName"></label>
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-md-6">
+                    <input asp-for="CellPhone" class="form-control" />
+                    <label asp-for="CellPhone"></label>
+                    <span asp-validation-for="CellPhone" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating py-2 col-md-6">
+                    <input asp-for="Address" class="form-control" />
+                    <label asp-for="Address"></label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-md-6">
+                    <input asp-for="PostalCode" class="form-control" />
+                    <label asp-for="PostalCode"></label>
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating py-2 col-md-6">
+                    <input asp-for="Password" class="form-control" />
+                    <label asp-for="Password"></label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-md-6">
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <label asp-for="ConfirmPassword"></label>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 py-2">
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <div class="p-3 border rounded">
+                <h5>Use another service to register.</h5>
+                <hr />
+                <p>
+                    There are no external authentication services configured.<br />
+                    See <a href="https://docs.microsoft.com/aspnet/core/security/authentication/social/" target="_blank">this article</a>
+                    about setting up external logins.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
