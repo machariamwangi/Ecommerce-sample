@@ -1,6 +1,7 @@
 ﻿using Ecommerce.Application.ViewModels;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,10 @@ namespace Ecommerce.Application.Services.AdminServices
     {
         private readonly IUnitOfWork _unitOfWork;
         private string _wwwRootPath;
-        public ProductService(IUnitOfWork unitOfWork)
+        public ProductService(IUnitOfWork unitOfWork, IWebHostEnvironment  env)
         {
             _unitOfWork = unitOfWork;
+            _wwwRootPath = env.WebRootPath;
         }
 
         public IEnumerable<Domain.Entities.Product> GetAllProducts()
@@ -67,7 +69,7 @@ namespace Ecommerce.Application.Services.AdminServices
                     file.CopyTo(fileStream);
                 }
 
-                productVM.Product.Picture = Path.Combine("img", "products", fileName + extension);
+                productVM.Product.Picture = Path.Combine(@"\img", "products", fileName + extension);
             }
             if (productVM.Product.Id <= 0)
             {
