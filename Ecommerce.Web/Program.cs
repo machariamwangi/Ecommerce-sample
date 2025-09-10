@@ -19,6 +19,8 @@ builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<HomeService>();
+builder.Services.AddScoped<CartService>();
+builder.Services.AddScoped<CustomerOrderService>();
 
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -84,26 +86,26 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}")
-//    .WithStaticAssets();
-
-// Root goes to Admin/Home/Index (optional, if you want Admin as default homepage)
-app.MapControllerRoute(
-    name: "default_admin",
-    pattern: "",
-    defaults: new { area = "Admin", controller = "Home", action = "Index" });
-
-// Area routes
-app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-// Non-area routes
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
+// Root goes to Admin/Home/Index (optional, if you want Admin as default homepage)
+//app.MapControllerRoute(
+//    name: "default_admin",
+//    pattern: "",
+//    defaults: new { area = "Admin", controller = "Home", action = "Index" });
+
+//// Area routes
+//app.MapControllerRoute(
+//    name: "areas",
+//    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+//// Non-area routes
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();
