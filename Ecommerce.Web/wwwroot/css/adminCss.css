@@ -1,0 +1,35 @@
+﻿body {
+    overflow-x: hidden;
+}
+
+#wrapper {
+    display: flex;
+}
+
+#sidebar {
+    width: 250px;
+    min-height: 100vh;
+}
+
+.sidebar-header {
+    background: #343a40;
+}
+
+.list-group-item {
+    border: none;
+}
+
+    .list-group-item:hover {
+        background: #495057;
+    }
+
+.badge {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+}
