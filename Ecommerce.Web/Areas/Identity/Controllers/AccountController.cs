@@ -59,6 +59,10 @@ namespace Ecommerce.Web.Areas.Identity.Controllers
         }
 
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
 
     }
