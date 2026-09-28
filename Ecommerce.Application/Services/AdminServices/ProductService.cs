@@ -9,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+
 namespace Ecommerce.Application.Services.AdminServices
 {
     public class ProductService
@@ -64,9 +67,21 @@ namespace Ecommerce.Application.Services.AdminServices
                     }
                 } 
 
-                using (var fileStream = new FileStream(Path.Combine(uploadRoot, fileName + extension), FileMode.Create))
+                // using (var fileStream = new FileStream(Path.Combine(uploadRoot, fileName + extension), FileMode.Create))
+                // {
+                //     file.CopyTo(fileStream);
+                // } 
+
+
+                 using (var image = Image.Load(file.OpenReadStream()))
                 {
-                    file.CopyTo(fileStream);
+                    // Keep product images at most 800x800, preserving aspect ratio
+                    image.Mutate(x => x.Resize(new ResizeOptions
+                    {
+                        Size = new Size(800, 800),
+                        Mode = ResizeMode.Max
+                    }));
+                    image.Save(Path.Combine(uploadRoot, fileName + extension));
                 }
 
                 productVM.Product.Picture = Path.Combine(@"\img", "products", fileName + extension);
