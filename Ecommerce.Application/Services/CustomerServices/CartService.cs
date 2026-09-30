@@ -13,6 +13,9 @@ namespace Ecommerce.Application.Services.CustomerServices
 {
     public class CartService
     {
+        // Maximum units of a single product allowed in one cart line
+        private const int MaxQuantityPerItem = 20;
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public CartService(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
@@ -142,6 +145,9 @@ namespace Ecommerce.Application.Services.CustomerServices
             var cart = _unitOfWork.Cart.GetFirstOrDefault(c => c.Id == cartId);
             if (cart == null)
                 return false;
+            
+            if (cart.Count >= MaxQuantityPerItem)
+                 return false;
 
             cart.Count += 1;
             _unitOfWork.Cart.Update(cart);
